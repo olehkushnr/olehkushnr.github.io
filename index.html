@@ -18,18 +18,16 @@
 </div>
 
 <script>
-    // Функція для створення та відправки форми
     function submitWayForPayForm() {
-        // Отримуємо параметри з URL-адреси поточної сторінки
-        const params = new URLSearchParams(window.location.search);
+        // !!! ОСНОВНА ЗМІНА ТУТ !!!
+        // Ми читаємо дані після знаку '#', а не '?'
+        const params = new URLSearchParams(window.location.hash.substring(1));
 
-        // Створюємо елемент форми
         const form = document.createElement('form');
         form.method = 'POST';
         form.action = 'https://secure.wayforpay.com/pay';
-        form.style.display = 'none'; // Робимо форму невидимою
+        form.style.display = 'none';
 
-        // Додаємо всі параметри з URL як приховані поля у форму
         params.forEach((value, key) => {
             const input = document.createElement('input');
             input.type = 'hidden';
@@ -38,12 +36,9 @@
             form.appendChild(input);
         });
 
-        // Додаємо форму на сторінку і одразу відправляємо її
         document.body.appendChild(form);
         form.submit();
     }
-
-    // Запускаємо функцію, як тільки сторінка завантажиться
     window.onload = submitWayForPayForm;
 </script>
 
